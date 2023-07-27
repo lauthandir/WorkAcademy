@@ -1,9 +1,12 @@
 package pl.isa.models;
 
+import java.time.LocalDate;
+
 public class studentModel {
 
-    String name;
-    String surname;
+    private String name;
+    private String surname;
+    private LocalDate dateBirth;
 
     public String getName() {
         return name;
@@ -21,5 +24,11 @@ public class studentModel {
         this.surname = surname;
     }
 
+    public LocalDate getDateBirth() {
+        return dateBirth;
+    }
 
+    public void setDateBirth(LocalDate dateBirth) {
+        this.dateBirth = dateBirth;
+    }
 }
