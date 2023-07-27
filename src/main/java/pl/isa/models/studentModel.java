@@ -7,6 +7,7 @@ public class studentModel {
     private String name;
     private String surname;
     private LocalDate dateBirth;
+    private String course;
 
     public String getName() {
         return name;
@@ -30,5 +31,13 @@ public class studentModel {
 
     public void setDateBirth(LocalDate dateBirth) {
         this.dateBirth = dateBirth;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public void setCourse(String course) {
+        this.course = course;
     }
 }
