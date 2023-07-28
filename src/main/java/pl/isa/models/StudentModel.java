@@ -2,7 +2,7 @@ package pl.isa.models;
 
 import java.time.LocalDate;
 
-public class studentModel {
+public class StudentModel {
 
     private String name;
     private String surname;
