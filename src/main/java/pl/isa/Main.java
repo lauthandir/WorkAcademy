@@ -1,6 +1,8 @@
 package pl.isa;
+
 import pl.isa.models.StudentModel;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public class Main {
@@ -14,16 +16,25 @@ public class Main {
         System.out.print("Surname: ");
         String surname = scanner.nextLine();
 
-        System.out.print("Date of Birth (yyyy-MM-dd): ");
-        String dateBirth = scanner.nextLine();
+        LocalDate dateBirth = null;
+        while (true) {
+            try {
+                System.out.print("Date of Birth (yyyy-MM-dd): ");
+                String dateBirthString = scanner.nextLine();
+                dateBirth = LocalDate.parse(dateBirthString);
+                break; // Jeśli data jest w prawidłowym formacie, przerywamy pętlę.
+            } catch (DateTimeParseException e) {
+                System.out.println("Invalid format. Use the format yyyy-MM-dd.");
+            }
+        }
 
         System.out.print("Course: ");
         String course = scanner.nextLine();
 
         student.setName(name);
         student.setSurname(surname);
-        student.setDateBirth(LocalDate.parse(dateBirth));
         student.setCourse(course);
+        student.setDateBirth(dateBirth);
 
         System.out.println();
         System.out.println("Student Information:");
