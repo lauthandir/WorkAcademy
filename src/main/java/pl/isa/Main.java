@@ -9,26 +9,26 @@ public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         StudentModel student = new StudentModel();
-
-        System.out.print("Name: ");
+        System.out.println("Please fill in the required data below:");
+        System.out.print("1.Name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Surname: ");
+        System.out.print("2.Surname: ");
         String surname = scanner.nextLine();
 
         LocalDate dateBirth = null;
         while (true) {
             try {
-                System.out.print("Date of Birth (yyyy-MM-dd): ");
+                System.out.print("3.Date of Birth (yyyy-MM-dd): ");
                 String dateBirthString = scanner.nextLine();
                 dateBirth = LocalDate.parse(dateBirthString);
-                break; // Jeśli data jest w prawidłowym formacie, przerywamy pętlę.
+                break;
             } catch (DateTimeParseException e) {
                 System.out.println("Invalid format. Use the format yyyy-MM-dd.");
             }
         }
 
-        System.out.print("Course: ");
+        System.out.print("4.Course: ");
         String course = scanner.nextLine();
 
         student.setName(name);
