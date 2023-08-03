@@ -1,6 +1,9 @@
 package pl.isa.models;
 
 import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 public class StudentModel {
 

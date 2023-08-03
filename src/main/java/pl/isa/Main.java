@@ -1,6 +1,7 @@
 package pl.isa;
 
 import pl.isa.models.StudentModel;
+import pl.isa.studentsdatabase.StudentsData;
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -10,6 +11,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         StudentModel student = new StudentModel();
         System.out.println("Please fill in the required data below:");
+
         System.out.print("1.Name: ");
         String name = scanner.nextLine();
 
@@ -42,5 +44,7 @@ public class Main {
         System.out.println("Surname: " + student.getSurname());
         System.out.println("Date of Birth: " + student.getDateBirth());
         System.out.println("Course: " + student.getCourse());
+
+        StudentsData.saveStudentData(student);
     }
 }
