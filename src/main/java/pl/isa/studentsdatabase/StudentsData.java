@@ -1,13 +1,11 @@
 package pl.isa.studentsdatabase;
 import com.google.gson.Gson;
 import pl.isa.models.StudentModel;
-import java.awt.*;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 
 
 public class StudentsData {
-    private static final String JSON_FILE_PATH = "students.json";
+    private static final String JSON_FILE_PATH = "./students.json";
 
 
     public static void saveStudentData(StudentModel student) {
@@ -23,8 +21,22 @@ public class StudentsData {
         } catch (IOException e) {
             System.out.println("An error occurred while saving student data to JSON file: " + e.getMessage());
         }
-    }
 
+    }
+ public static StudentModel readStudentData(){
+
+        try {
+            Gson gson = new Gson();
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(JSON_FILE_PATH))){
+                return  gson.fromJson(reader, StudentModel.class);
+            }
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+ }
 
 
 }
