@@ -2,13 +2,19 @@ package pl.isa.studentsdatabase;
 import com.google.gson.Gson;
 import pl.isa.models.StudentModel;
 import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class StudentsData {
-    private static final String JSON_FILE_PATH = "./students.json";
+    private static final String JSON_FILE_PATH = "src/main/java/pl/isa/data/students.json";
 
 
-    public static void saveStudentData(StudentModel student) {
+    public static void saveStudentData(StudentModel student, Gson gson) {
+
+        List<StudentModel> students = readStudentData(gson);
+        students.add(student);
+
         try {
             Gson gson = new Gson();
 
@@ -23,7 +29,8 @@ public class StudentsData {
         }
 
     }
- public static StudentModel readStudentData(){
+ public static List<StudentModel> readStudentData(Gson gson){
+List<StudentModel> students = new ArrayList<>();
 
         try {
             Gson gson = new Gson();
