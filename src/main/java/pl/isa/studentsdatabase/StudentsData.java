@@ -1,7 +1,10 @@
 package pl.isa.studentsdatabase;
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
+import com.google.gson.reflect.TypeToken;
 import pl.isa.models.StudentModel;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,41 +12,42 @@ import java.util.List;
 public class StudentsData {
     private static final String JSON_FILE_PATH = "src/main/java/pl/isa/data/students.json";
 
-
     public static void saveStudentData(StudentModel student, Gson gson) {
+        List<StudentModel> students = readStudentData(gson); // Odczytujemy istniejące dane
 
-        List<StudentModel> students = readStudentData(gson);
-        students.add(student);
+        students.add(student); // Dodajemy nowego studenta
 
         try {
-            Gson gson = new Gson();
-
-
             try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
-                gson.toJson(student, writer);
+                gson.toJson(students, writer); // Zapisujemy zaktualizowaną listę studentów
             }
-
             System.out.println("Student data saved to JSON file: " + JSON_FILE_PATH);
         } catch (IOException e) {
             System.out.println("An error occurred while saving student data to JSON file: " + e.getMessage());
+            e.printStackTrace();
         }
-
     }
- public static List<StudentModel> readStudentData(Gson gson){
-List<StudentModel> students = new ArrayList<>();
+
+    private static List<StudentModel> readStudentData(Gson gson) {
+        List<StudentModel> students = new ArrayList<>();
 
         try {
-            Gson gson = new Gson();
-
-            try (BufferedReader reader = new BufferedReader(new FileReader(JSON_FILE_PATH))){
-                return  gson.fromJson(reader, StudentModel.class);
+            File file = new File(JSON_FILE_PATH);
+            if (file.exists()) {
+                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                    // Odczytujemy dane z pliku i deserializujemy je do listy studentów
+                    Type studentListType = new TypeToken<List<StudentModel>>() {}.getType();
+                    students = gson.fromJson(reader, studentListType);
+                }
             }
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("An error occurred while reading student data from JSON file: " + e.getMessage());
+            e.printStackTrace();
+        } catch (JsonSyntaxException e) {
+            System.out.println("JSON Syntax error: " + e.getMessage());
+            e.printStackTrace();
         }
- }
 
-
+        return students;
+    }
 }
