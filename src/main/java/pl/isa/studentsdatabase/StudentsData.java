@@ -1,10 +1,12 @@
 package pl.isa.studentsdatabase;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import pl.isa.LocalDateTypeAdapter;
 import pl.isa.models.StudentModel;
+
 import java.io.*;
 import java.lang.reflect.Type;
 import java.time.LocalDate;
@@ -21,10 +23,10 @@ public class StudentsData {
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         List<StudentModel> students = readStudentData(gson);
-        students.add(student);
         if (students == null) {
             students = new ArrayList<>();
         }
+        students.add(student);
 
         try {
             try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
@@ -36,7 +38,8 @@ public class StudentsData {
             e.printStackTrace();
         }
     }
-public static List<StudentModel> readStudentData(Gson gson) {
+
+    public static List<StudentModel> readStudentData(Gson gson) {
         List<StudentModel> students = new ArrayList<>();
 
         try {
@@ -44,7 +47,8 @@ public static List<StudentModel> readStudentData(Gson gson) {
             if (file.exists()) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
 
-                    Type studentListType = new TypeToken<List<StudentModel>>() {}.getType();
+                    Type studentListType = new TypeToken<List<StudentModel>>() {
+                    }.getType();
                     students = gson.fromJson(reader, studentListType);
                 }
             }
