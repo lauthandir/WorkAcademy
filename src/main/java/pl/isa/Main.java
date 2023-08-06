@@ -52,5 +52,7 @@ public class Main {
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         StudentsData.saveStudentData(student);
+
+
     }
 }

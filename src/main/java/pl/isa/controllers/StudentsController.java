@@ -24,4 +24,25 @@ public class StudentsController {
     StudentsData.saveStudentData(student);
     return Response.status(Response.Status.CREATED).build();
     }
+
+    @GET
+    @Path("/averageAge")
+    @Produces(MediaType.APPLICATION_JSON)
+    public double getAverageAge() {
+        return StudentsData.getAverageAge();
+    }
+
+    @GET
+    @Path("/totalStudents")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int getTotalStudents() {
+        return StudentsData.getTotalStudents();
+    }
+
+    @GET
+    @Path("/studentsInCourse/{course}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int getStudentsInCourse(@PathParam("course") String course) {
+        return StudentsData.getStudentsInCourse(course);
+    }
 }
