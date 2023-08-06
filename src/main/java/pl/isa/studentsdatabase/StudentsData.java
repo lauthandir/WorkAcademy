@@ -27,8 +27,7 @@ public class StudentsData {
             e.printStackTrace();
         }
     }
-
-    private static List<StudentModel> readStudentData(Gson gson) {
+private static List<StudentModel> readStudentData(Gson gson) {
         List<StudentModel> students = new ArrayList<>();
 
         try {
