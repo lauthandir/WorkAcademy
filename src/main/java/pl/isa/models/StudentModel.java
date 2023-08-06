@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class StudentModel {
     private String name;
     private String surname;
-    private DateInfo dateBirth;
+    private LocalDate dateBirth;
     private String course;
 
     public String getName() {
@@ -24,12 +24,12 @@ public class StudentModel {
         this.surname = surname;
     }
 
-    public DateInfo getDateBirth() {
+    public LocalDate getDateBirth() {
         return dateBirth;
     }
 
     public void setDateBirth(LocalDate dateBirth) {
-        this.dateBirth = new DateInfo(dateBirth.getYear(), dateBirth.getMonthValue(), dateBirth.getDayOfMonth());
+        this.dateBirth = dateBirth;
     }
 
     public String getCourse() {

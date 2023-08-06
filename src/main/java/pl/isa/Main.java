@@ -47,9 +47,9 @@ public class Main {
         System.out.println("Date of Birth: " + student.getDateBirth());
         System.out.println("Course: " + student.getCourse());
 
-       GsonBuilder gsonBuilder = new GsonBuilder();
-       gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateDeserializer());
-       Gson gson = gsonBuilder.setPrettyPrinting().create();
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter());
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
 
         StudentsData.saveStudentData(student, gson);
     }
