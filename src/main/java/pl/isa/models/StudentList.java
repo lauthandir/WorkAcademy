@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StudentList {
-    private List<StudentModel> students;
+    public List<StudentModel> students;
 
     public StudentList() {
         students = new ArrayList<>();
