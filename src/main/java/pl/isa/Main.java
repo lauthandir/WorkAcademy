@@ -1,5 +1,7 @@
 package pl.isa;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import pl.isa.models.StudentModel;
 import pl.isa.studentsdatabase.StudentsData;
 import java.time.LocalDate;
@@ -45,6 +47,10 @@ public class Main {
         System.out.println("Date of Birth: " + student.getDateBirth());
         System.out.println("Course: " + student.getCourse());
 
-        StudentsData.saveStudentData(student);
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter());
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+
+        StudentsData.saveStudentData(student, gson);
     }
 }
