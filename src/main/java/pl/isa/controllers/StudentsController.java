@@ -1,5 +1,6 @@
 package pl.isa.controllers;
 
+import com.google.gson.Gson;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -14,7 +15,7 @@ public class StudentsController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<StudentModel> getStudents() {
-    return StudentsData.readStudentData();
+    return StudentsData.readStudentData(new Gson());
     }
 
     @POST

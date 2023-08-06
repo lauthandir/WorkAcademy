@@ -1,21 +1,30 @@
 package pl.isa.studentsdatabase;
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import pl.isa.LocalDateTypeAdapter;
 import pl.isa.models.StudentModel;
 import java.io.*;
 import java.lang.reflect.Type;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class StudentsData {
-    private static final String JSON_FILE_PATH = "src/main/resources/students.json";
+    static final String JSON_FILE_PATH = "src/main/resources/students.json";
 
-    public static void saveStudentData(StudentModel student, Gson gson) {
+    public static void saveStudentData(StudentModel student) {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter());
+        Gson gson = gsonBuilder.setPrettyPrinting().create();
+
         List<StudentModel> students = readStudentData(gson);
-
         students.add(student);
+        if (students == null) {
+            students = new ArrayList<>();
+        }
 
         try {
             try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
@@ -27,7 +36,7 @@ public class StudentsData {
             e.printStackTrace();
         }
     }
-private static List<StudentModel> readStudentData(Gson gson) {
+public static List<StudentModel> readStudentData(Gson gson) {
         List<StudentModel> students = new ArrayList<>();
 
         try {

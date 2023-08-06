@@ -51,6 +51,6 @@ public class Main {
         gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter());
         Gson gson = gsonBuilder.setPrettyPrinting().create();
 
-        StudentsData.saveStudentData(student, gson);
+        StudentsData.saveStudentData(student);
     }
 }
