@@ -13,13 +13,13 @@ public class StudentsData {
     private static final String JSON_FILE_PATH = "src/main/java/pl/isa/data/students.json";
 
     public static void saveStudentData(StudentModel student, Gson gson) {
-        List<StudentModel> students = readStudentData(gson); // Odczytujemy istniejące dane
+        List<StudentModel> students = readStudentData(gson);
 
-        students.add(student); // Dodajemy nowego studenta
+        students.add(student);
 
         try {
             try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
-                gson.toJson(students, writer); // Zapisujemy zaktualizowaną listę studentów
+                gson.toJson(students, writer);
             }
             System.out.println("Student data saved to JSON file: " + JSON_FILE_PATH);
         } catch (IOException e) {
@@ -35,7 +35,7 @@ public class StudentsData {
             File file = new File(JSON_FILE_PATH);
             if (file.exists()) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                    // Odczytujemy dane z pliku i deserializujemy je do listy studentów
+
                     Type studentListType = new TypeToken<List<StudentModel>>() {}.getType();
                     students = gson.fromJson(reader, studentListType);
                 }
