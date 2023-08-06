@@ -9,5 +9,5 @@ public class DateInfo {
         this.year = year;
         this.month = month;
         this.day = day;
-
+    }
 }
