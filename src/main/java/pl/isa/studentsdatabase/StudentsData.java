@@ -46,7 +46,6 @@ public class StudentsData {
             File file = new File(JSON_FILE_PATH);
             if (file.exists()) {
                 try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-
                     Type studentListType = new TypeToken<List<StudentModel>>() {
                     }.getType();
                     students = gson.fromJson(reader, studentListType);
@@ -62,4 +61,42 @@ public class StudentsData {
 
         return students;
     }
+
+    public static double getAverageAge() {
+        List<StudentModel> students = readStudentData(new Gson());
+        if (students.isEmpty()) {
+            return 0;
+        }
+
+        double totalAge = 0;
+        LocalDate currentDate = LocalDate.now();
+        for (StudentModel student : students) {
+            LocalDate dateOfBirth = student.getDateBirth();
+            int age = currentDate.getYear() - dateOfBirth.getYear();
+            if (currentDate.getDayOfYear() < dateOfBirth.getDayOfYear()) {
+                age--;
+            }
+            totalAge += age;
+        }
+
+        return totalAge / students.size();
+    }
+
+    public static int getTotalStudents() {
+        List<StudentModel> students = readStudentData(new Gson());
+        return students.size();
+    }
+
+    public static int getStudentsInCourse(String course) {
+        List<StudentModel> students = readStudentData(new Gson());
+        int count = 0;
+        for (StudentModel student : students) {
+            if (student.getCourse().equalsIgnoreCase(course)) {
+                count++;
+            }
+        }
+        return count;
+    }
+
+
 }
