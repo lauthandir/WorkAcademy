@@ -10,7 +10,7 @@ import java.util.List;
 
 
 public class StudentsData {
-    private static final String JSON_FILE_PATH = "src/main/java/pl/isa/data/students.json";
+    private static final String JSON_FILE_PATH = "src/main/resources/students.json";
 
     public static void saveStudentData(StudentModel student, Gson gson) {
         List<StudentModel> students = readStudentData(gson);
