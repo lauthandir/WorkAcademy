@@ -124,29 +124,29 @@ public class StudentsData {
         }
         return surnames;
     }
-//        public boolean updateStudentData(Long studentId, StudentModel updatedStudent) {
-//        List<StudentModel> students = readStudentData();
-//        for (int i = 0; i < students.size(); i++) {
-//            if (students.get(i).getId().equals(studentId)) {
-//                students.set(i, updatedStudent);
-//                saveStudentData(students);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
-//
-//    public boolean deleteStudentData(Long studentId) {
-//        List<StudentModel> students = readStudentData();
-//        for (Iterator<StudentModel> iterator = students.iterator(); iterator.hasNext();) {
-//            StudentModel student = iterator.next();
-//            if (student.getId().equals(studentId)) {
-//                iterator.remove();
-//                saveStudentData(students);
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
+        public boolean updateStudentData(Long studentId, StudentModel updatedStudent) {
+        List<StudentModel> students = readStudentData();
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId().equals(studentId)) {
+                students.set(i, updatedStudent);
+                saveStudentData(students);
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean deleteStudentData(Long studentId) {
+        List<StudentModel> students = readStudentData();
+        for (Iterator<StudentModel> iterator = students.iterator(); iterator.hasNext();) {
+            StudentModel student = iterator.next();
+            if (student.getId().equals(studentId)) {
+                iterator.remove();
+                saveStudentData(students);
+                return true;
+            }
+        }
+        return false;
+    }
 
 }
