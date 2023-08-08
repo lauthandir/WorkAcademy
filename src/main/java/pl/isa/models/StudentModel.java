@@ -1,25 +1,38 @@
 package pl.isa.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+
+
 import java.time.LocalDate;
 
 @Entity
 public class StudentModel {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long Id;
+    @JsonProperty
     private String name;
+    @JsonProperty
     private String surname;
+    @JsonProperty
     private LocalDate dateBirth;
+    @JsonProperty
     private String course;
+
 
     public Long getId() {
         return Id;
     }
 
+
     public void setId(Long id) {
         this.Id = id;
     }
+
 
     public String getName() {
         return name;

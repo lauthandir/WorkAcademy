@@ -1,38 +1,37 @@
 package pl.isa.dao;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonSyntaxException;
-import com.google.gson.reflect.TypeToken;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import pl.isa.util.LocalDateTypeAdapter;
 import pl.isa.models.StudentModel;
 
 import java.io.*;
-import java.lang.reflect.Type;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Repository
 public class StudentsData {
-    static final String JSON_FILE_PATH = "src/main/resources/students.json";
 
-    public static void saveStudentData(StudentModel student) {
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter());
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
+    private static final String JSON_FILE_PATH = "src/main/resources/students.json";
+    private final ObjectMapper objectMapper;
 
-        List<StudentModel> students = readStudentData(gson);
+    @Autowired
+    public StudentsData(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
+
+    public void saveStudentData(StudentModel student) {
+        List<StudentModel> students = readStudentData();
         if (students == null) {
             students = new ArrayList<>();
         }
-        students.add(student);
+        students.addAll(new ArrayList<>());
 
-        try {
-            try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
-                gson.toJson(students, writer);
-            }
+        try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
+            objectMapper.writeValue(writer, students);
             System.out.println("Student data saved to JSON file: " + JSON_FILE_PATH);
         } catch (IOException e) {
             System.out.println("An error occurred while saving student data to JSON file: " + e.getMessage());
@@ -40,31 +39,24 @@ public class StudentsData {
         }
     }
 
-    public static List<StudentModel> readStudentData(Gson gson) {
+    public List<StudentModel> readStudentData() {
         List<StudentModel> students = new ArrayList<>();
 
         try {
             File file = new File(JSON_FILE_PATH);
             if (file.exists()) {
-                try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-                    Type studentListType = new TypeToken<List<StudentModel>>() {
-                    }.getType();
-                    students = gson.fromJson(reader, studentListType);
-                }
+                CollectionType collectionType = objectMapper.getTypeFactory().constructCollectionType(ArrayList.class, StudentModel.class);
+                students = objectMapper.readValue(file, collectionType);
             }
         } catch (IOException e) {
             System.out.println("An error occurred while reading student data from JSON file: " + e.getMessage());
             e.printStackTrace();
-        } catch (JsonSyntaxException e) {
-            System.out.println("JSON Syntax error: " + e.getMessage());
-            e.printStackTrace();
         }
-
         return students;
     }
 
-    public static double getAverageAge() {
-        List<StudentModel> students = readStudentData(new Gson());
+    public double getAverageAge() {
+        List<StudentModel> students = readStudentData();
         if (students.isEmpty()) {
             return 0;
         }
@@ -83,13 +75,13 @@ public class StudentsData {
         return totalAge / students.size();
     }
 
-    public static int getTotalStudents() {
-        List<StudentModel> students = readStudentData(new Gson());
+    public int getTotalStudents() {
+        List<StudentModel> students = readStudentData();
         return students.size();
     }
 
-    public static int getStudentsInCourse(String course) {
-        List<StudentModel> students = readStudentData(new Gson());
+    public int getStudentsInCourse(String course) {
+        List<StudentModel> students = readStudentData();
         int count = 0;
         for (StudentModel student : students) {
             if (student.getCourse().equalsIgnoreCase(course)) {
@@ -97,6 +89,23 @@ public class StudentsData {
             }
         }
         return count;
+    }
+    public List<String> getAllNames() {
+        List<StudentModel> students = readStudentData();
+        List<String> names = new ArrayList<>();
+        for (StudentModel student : students) {
+            names.add(student.getName());
+        }
+        return names;
+    }
+
+    public List<String> getAllSurnames() {
+        List<StudentModel> students = readStudentData();
+        List<String> surnames = new ArrayList<>();
+        for (StudentModel student : students) {
+            surnames.add(student.getSurname());
+        }
+        return surnames;
     }
 
 
