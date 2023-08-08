@@ -1,7 +1,6 @@
 package pl.isa.models;
 
 import jakarta.persistence.Entity;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import java.time.LocalDate;
 
 @Entity

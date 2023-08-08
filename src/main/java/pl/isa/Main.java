@@ -1,11 +1,6 @@
 package pl.isa;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import pl.isa.models.StudentModel;
-import pl.isa.dao.StudentsData;
-import pl.isa.util.LocalDateTypeAdapter;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
@@ -48,12 +43,6 @@ public class Main {
         System.out.println("Surname: " + student.getSurname());
         System.out.println("Date of Birth: " + student.getDateBirth());
         System.out.println("Course: " + student.getCourse());
-
-        GsonBuilder gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(LocalDate.class, new LocalDateTypeAdapter());
-        Gson gson = gsonBuilder.setPrettyPrinting().create();
-
-        StudentsData.saveStudentData(student);
 
 
     }

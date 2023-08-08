@@ -10,5 +10,17 @@
     "surname": "ww",
     "dateBirth": "1976-09-09",
     "course": "er"
+  },
+  {
+    "name": "John",
+    "surname": "Doe",
+    "dateBirth": "1995-05-15",
+    "course": "Computer Science"
+  },
+  {
+    "name": "sdfasdf",
+    "surname": "adrgeaga",
+    "dateBirth": "1995-05-15",
+    "course": "dupa"
   }
 ]
