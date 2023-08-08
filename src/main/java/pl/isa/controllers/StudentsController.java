@@ -55,4 +55,24 @@ public class StudentsController {
         return studentsData.getAllSurnames().toString();
     }
 
+    @PostMapping("/{studentId}")
+    public ResponseEntity<Void> updateStudent(@PathVariable Long studentId, @RequestBody StudentModel updatedStudent) {
+        boolean success = studentsData.updateStudentData(studentId, updatedStudent);
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{studentId}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
+        boolean success = studentsData.deleteStudentData(studentId);
+        if (success) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
 }
