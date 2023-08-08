@@ -124,11 +124,15 @@ public class StudentsData {
         }
         return surnames;
     }
-        public boolean updateStudentData(Long studentId, StudentModel updatedStudent) {
+    public boolean updateStudentData(Long studentId, StudentModel updatedStudent) {
         List<StudentModel> students = readStudentData();
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getId().equals(studentId)) {
-                students.set(i, updatedStudent);
+                StudentModel existingStudent = students.get(i);
+                existingStudent.setName(updatedStudent.getName());
+                existingStudent.setSurname(updatedStudent.getSurname());
+                existingStudent.setDateBirth(updatedStudent.getDateBirth());
+                existingStudent.setCourse(updatedStudent.getCourse());
                 saveStudentData(students);
                 return true;
             }
@@ -136,9 +140,11 @@ public class StudentsData {
         return false;
     }
 
+
     public boolean deleteStudentData(Long studentId) {
         List<StudentModel> students = readStudentData();
-        for (Iterator<StudentModel> iterator = students.iterator(); iterator.hasNext();) {
+        Iterator<StudentModel> iterator = students.iterator();
+        while (iterator.hasNext()) {
             StudentModel student = iterator.next();
             if (student.getId().equals(studentId)) {
                 iterator.remove();
