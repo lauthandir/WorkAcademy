@@ -23,12 +23,27 @@ public class StudentsData {
         this.objectMapper = objectMapper;
     }
 
-    public void saveStudentData(StudentModel student) {
-        List<StudentModel> students = readStudentData();
+//    public void saveStudentData(StudentModel student) {
+//        List<StudentModel> students = readStudentData();
+//        if (students == null) {
+//            students = new ArrayList<>();
+//        }
+//        students.add(student);
+//
+//        try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
+//            objectMapper.writeValue(writer, students);
+//            System.out.println("Student data saved to JSON file: " + JSON_FILE_PATH);
+//        } catch (IOException e) {
+//            System.out.println("An error occurred while saving student data to JSON file: " + e.getMessage());
+//            e.printStackTrace();
+//        }
+//    }
+    public void saveStudentData(List<StudentModel> students) {
+        List<StudentModel> studentsList = readStudentData();
         if (students == null) {
             students = new ArrayList<>();
         }
-        students.addAll(new ArrayList<>());
+        students.addAll(studentsList);
 
         try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
             objectMapper.writeValue(writer, students);
@@ -38,6 +53,7 @@ public class StudentsData {
             e.printStackTrace();
         }
     }
+
 
     public List<StudentModel> readStudentData() {
         List<StudentModel> students = new ArrayList<>();
