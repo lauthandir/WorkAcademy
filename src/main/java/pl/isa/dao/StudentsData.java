@@ -28,7 +28,7 @@ public class StudentsData {
         if (students == null) {
             students = new ArrayList<>();
         }
-        students.add(student);
+        students.addAll(new ArrayList<>());
 
         try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
             objectMapper.writeValue(writer, students);

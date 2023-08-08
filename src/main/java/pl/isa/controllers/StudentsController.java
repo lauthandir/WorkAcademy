@@ -26,8 +26,8 @@ public class StudentsController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveStudent(@RequestBody StudentModel student) {
-        studentsData.saveStudentData(student);
+    public ResponseEntity<Void> saveStudents(@RequestBody List<StudentModel> student) {
+        studentsData.saveStudentData(students);
         return ResponseEntity.status(201).build();
     }
 
