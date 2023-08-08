@@ -90,4 +90,23 @@ public class StudentsData {
         }
         return count;
     }
+    public List<String> getAllNames() {
+        List<StudentModel> students = readStudentData();
+        List<String> names = new ArrayList<>();
+        for (StudentModel student : students) {
+            names.add(student.getName());
+        }
+        return names;
+    }
+
+    public List<String> getAllSurnames() {
+        List<StudentModel> students = readStudentData();
+        List<String> surnames = new ArrayList<>();
+        for (StudentModel student : students) {
+            surnames.add(student.getSurname());
+        }
+        return surnames;
+    }
+
+
 }

@@ -45,4 +45,14 @@ public class StudentsController {
     public int getStudentsInCourse(@PathVariable String course) {
         return studentsData.getStudentsInCourse(course);
     }
+
+    @GetMapping("/allNames")
+    public String getAllNames(){
+        return studentsData.getAllNames().toString();
+    }
+    @GetMapping("/allSureNames")
+    public String getAllSurnames(){
+        return studentsData.getAllSurnames().toString();
+    }
+
 }
