@@ -171,8 +171,7 @@ public class StudentsData {
                 .collect(Collectors.toList());
     }
 
-    // DODAWANIE KILKU STUDENTÓW JEDNOCZEŚNIE - DZIAŁA !! :D
-    public void SaveSeveralAtOnce(List<StudentModel> students) {
+       public void SaveSeveralAtOnce(List<StudentModel> students) {
         List<StudentModel> existingStudents = readStudentData();
 
         Long nextId = getNextId(existingStudents);
