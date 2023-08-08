@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import org.springframework.stereotype.Repository;
 import pl.isa.util.LocalDateTypeAdapter;
 import pl.isa.models.StudentModel;
 
@@ -13,7 +14,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-
+@Repository
 public class StudentsData {
     static final String JSON_FILE_PATH = "src/main/resources/students.json";
 

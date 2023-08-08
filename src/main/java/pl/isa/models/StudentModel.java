@@ -1,12 +1,25 @@
 package pl.isa.models;
 
+import jakarta.persistence.Entity;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import java.time.LocalDate;
 
+@Entity
 public class StudentModel {
+
+    private Long Id;
     private String name;
     private String surname;
     private LocalDate dateBirth;
     private String course;
+
+    public Long getId() {
+        return Id;
+    }
+
+    public void setId(Long id) {
+        this.Id = id;
+    }
 
     public String getName() {
         return name;
