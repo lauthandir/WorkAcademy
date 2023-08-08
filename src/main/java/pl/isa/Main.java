@@ -3,7 +3,9 @@ package pl.isa;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import pl.isa.models.StudentModel;
-import pl.isa.studentsdatabase.StudentsData;
+import pl.isa.dao.StudentsData;
+import pl.isa.util.LocalDateTypeAdapter;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;

@@ -5,7 +5,7 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import pl.isa.models.StudentModel;
-import pl.isa.studentsdatabase.StudentsData;
+import pl.isa.dao.StudentsData;
 import java.util.List;
 
 
