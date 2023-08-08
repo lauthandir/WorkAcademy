@@ -26,7 +26,7 @@ public class StudentsController {
     }
 
     @PostMapping
-    public ResponseEntity<Void> saveStudents(@RequestBody List<StudentModel> students) {
+    public ResponseEntity<Void> saveStudents(@RequestBody StudentModel students) {
         studentsData.saveStudentData(students);
         return ResponseEntity.status(201).build();
     }
@@ -47,32 +47,43 @@ public class StudentsController {
     }
 
     @GetMapping("/allNames")
-    public String getAllNames(){
+    public String getAllNames() {
         return studentsData.getAllNames().toString();
     }
+
     @GetMapping("/allSureNames")
-    public String getAllSurnames(){
+    public String getAllSurnames() {
         return studentsData.getAllSurnames().toString();
     }
 
-    @PostMapping("/{studentId}")
-    public ResponseEntity<Void> updateStudent(@PathVariable Long studentId, @RequestBody StudentModel updatedStudent) {
-        boolean success = studentsData.updateStudentData(studentId, updatedStudent);
-        if (success) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PutMapping("/{id}")
+    public ResponseEntity<Void> editStudent(@PathVariable Long id, @RequestBody StudentModel updatedStudent) {
+        studentsData.editStudentData(id, updatedStudent);
+        return ResponseEntity.ok().build();
     }
 
-    @DeleteMapping("/{studentId}")
-    public ResponseEntity<Void> deleteStudent(@PathVariable Long studentId) {
-        boolean success = studentsData.deleteStudentData(studentId);
-        if (success) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteStudent(@PathVariable Long id) {
+        studentsData.deleteStudentData(id);
+        return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/search/byName/{name}")
+    public ResponseEntity<List<StudentModel>> findStudentsByName(@PathVariable String name) {
+        List<StudentModel> students = studentsData.findStudentsByName(name);
+        return ResponseEntity.ok(students);
+    }
+
+    @GetMapping("/search/bySurname/{surname}")
+    public ResponseEntity<List<StudentModel>> findStudentsBySurname(@PathVariable String surname) {
+        List<StudentModel> students = studentsData.findStudentsBySurname(surname);
+        return ResponseEntity.ok(students);
+    }
+
+    @PostMapping("/batch")
+    public ResponseEntity<Void> saveStudentsBatch(@RequestBody List<StudentModel> students) {
+        studentsData.SaveSeveralAtOnce(students);
+        return ResponseEntity.status(201).build();
     }
 
 }

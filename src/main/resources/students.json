@@ -1,13 +1,35 @@
 [
   {
-    "name": "",
-    "surname": "",
+    "name": "John",
+    "surname": "Doe",
     "dateBirth": [
-      1987,
-      5,
-      13
+      1995,
+      1,
+      15
     ],
-    "course": "java",
+    "course": "Computer Science",
     "id": 1
+  },
+  {
+    "name": "JohnJohnJohn",
+    "surname": "DoeDoeDoe",
+    "dateBirth": [
+      1995,
+      1,
+      15
+    ],
+    "course": "Computer Science",
+    "id": 2
+  },
+  {
+    "name": "Jane",
+    "surname": "Smith",
+    "dateBirth": [
+      1998,
+      6,
+      20
+    ],
+    "course": "Biology",
+    "id": 3
   }
 ]
