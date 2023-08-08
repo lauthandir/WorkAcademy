@@ -1,1 +1,13 @@
-[{"name":"wojk","surname":"kiy","dateBirth":[1987,5,13],"course":"java","id":124331324},{"name":"wojk","surname":"kiy","dateBirth":[1987,5,13],"course":"java","id":124331324}]
+[
+  {
+    "name": "",
+    "surname": "",
+    "dateBirth": [
+      1987,
+      5,
+      13
+    ],
+    "course": "java",
+    "id": 1
+  }
+]
