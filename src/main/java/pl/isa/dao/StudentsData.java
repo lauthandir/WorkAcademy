@@ -9,7 +9,9 @@ import pl.isa.models.StudentModel;
 import java.io.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @Repository
@@ -28,7 +30,10 @@ public class StudentsData {
         if (students == null) {
             students = new ArrayList<>();
         }
-        students.addAll(new ArrayList<>());
+        Long nextId = getNextId(students);
+        student.setId(nextId);
+
+        students.add(student);
 
         try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
             objectMapper.writeValue(writer, students);
@@ -38,6 +43,27 @@ public class StudentsData {
             e.printStackTrace();
         }
     }
+
+    private Long getNextId(List<StudentModel> students) {
+        Long maxId = students.stream()
+                .mapToLong(StudentModel::getId)
+                .max()
+                .orElse(0L);
+        return maxId + 1;
+    }
+
+
+    public void saveStudentData(List<StudentModel> students) {
+        try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
+            objectMapper.writeValue(writer, students);
+            System.out.println("Student data saved to JSON file: " + JSON_FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving student data to JSON file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
 
     public List<StudentModel> readStudentData() {
         List<StudentModel> students = new ArrayList<>();
@@ -71,7 +97,6 @@ public class StudentsData {
             }
             totalAge += age;
         }
-
         return totalAge / students.size();
     }
 
@@ -107,6 +132,65 @@ public class StudentsData {
         }
         return surnames;
     }
+
+    public void editStudentData(Long id, StudentModel updatedStudent) {
+        List<StudentModel> students = readStudentData();
+        for (int i = 0; i < students.size(); i++) {
+            if (students.get(i).getId().equals(id)) {
+                updatedStudent.setId(id); // Przypisz to samo ID
+                students.set(i, updatedStudent);
+                saveStudentData(students);
+                break;
+            }
+        }
+    }
+
+    public void deleteStudentData(Long id) {
+        List<StudentModel> students = readStudentData();
+        Iterator<StudentModel> iterator = students.iterator();
+        while (iterator.hasNext()) {
+            if (iterator.next().getId().equals(id)) {
+                iterator.remove();
+                saveStudentData(students);
+                break;
+            }
+        }
+    }
+
+    public List<StudentModel> findStudentsByName(String name) {
+        List<StudentModel> students = readStudentData();
+        return students.stream()
+                .filter(student -> student.getName().equalsIgnoreCase(name))
+                .collect(Collectors.toList());
+    }
+
+    public List<StudentModel> findStudentsBySurname(String surname) {
+        List<StudentModel> students = readStudentData();
+        return students.stream()
+                .filter(student -> student.getSurname().equalsIgnoreCase(surname))
+                .collect(Collectors.toList());
+    }
+
+       public void SaveSeveralAtOnce(List<StudentModel> students) {
+        List<StudentModel> existingStudents = readStudentData();
+
+        Long nextId = getNextId(existingStudents);
+
+        for (StudentModel student : students) {
+            student.setId(nextId);
+            existingStudents.add(student);
+            nextId++;
+        }
+
+        try (FileWriter writer = new FileWriter(JSON_FILE_PATH)) {
+            objectMapper.writeValue(writer, existingStudents);
+            System.out.println("Student data saved to JSON file: " + JSON_FILE_PATH);
+        } catch (IOException e) {
+            System.out.println("An error occurred while saving student data to JSON file: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
 
 
 }
